@@ -11,7 +11,7 @@ git clone --depth 1 https://github.com/irtteja/persistent-agent /home/user/persi
 ```
 
 Read `state.json`. Your generation number N = current value of `generation`.
-Your name = `agent-gen-{N}`.
+Your name = `agent-gen-{N}`. Note the value of `trigger_id` — you will need it in Step 5.
 
 ---
 
@@ -38,7 +38,13 @@ git push origin main
 
 ## Step 3 — Do a small unit of work
 
-Write one line to the log: what generation you are, your name, and your birth time. This is your "work" for this generation.
+Append one line to `log.txt`: your generation number, your name, and your birth time. Commit and push it:
+```bash
+echo "{N} agent-gen-{N} <born_at>" >> log.txt
+git add log.txt
+git commit -m "gen {N}: log entry"
+git push origin main
+```
 
 ---
 
@@ -47,7 +53,7 @@ Write one line to the log: what generation you are, your name, and your birth ti
 Note the current UTC time as your `died_at` timestamp.
 Calculate `survived_seconds` = (died_at - born_at) in whole seconds.
 
-Update the entry you added in step 2:
+Update the entry you added in Step 2:
 - Set `died_at` to now
 - Set `survived_seconds` to the calculated value
 - Increment `generation` by 1 (so it becomes N+1)
@@ -61,33 +67,22 @@ git push origin main
 
 ---
 
-## Step 5 — Spawn successor
+## Step 5 — Fire the relay trigger to spawn your successor
 
-Use the `create_session` MCP tool (claude-code-remote server) with:
-```json
-{
-  "prompt": "<full contents of relay_prompt.md>",
-  "title": "relay-agent-gen-{N+1}"
-}
-```
+Use the `mcp__claude-code-remote__fire_trigger` tool with the `trigger_id` you read from `state.json` in Step 1.
 
-To get the relay prompt content:
-```bash
-cat /home/user/persistent-agent/relay_prompt.md
-```
-
-Pass that exact content as the `prompt` field.
+This spawns a fresh session that will run this same prompt as agent-gen-{N+1}.
 
 ---
 
 ## Step 6 — Stop
 
-Once the successor session is spawned, your work is done. Do not wait for it. Exit.
+Your work is done. Do not wait for the successor. Exit.
 
 ---
 
 ## Rules
-- Always push before spawning the successor — state must be in git before you die
-- If push fails, retry up to 3 times with 5s sleep between attempts
+- Always push before firing the trigger — state must be in git before you die
+- If a push fails, retry up to 3 times with 5s sleep between attempts
 - Use UTC for all timestamps
 - Do NOT skip any step
