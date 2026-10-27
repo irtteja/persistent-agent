@@ -1,6 +1,6 @@
 {
-  "generation": 0,
+  "generation": 1,
   "agents": [
-    {"name": "agent-gen-0", "born_at": "2026-10-27T11:15:18Z", "died_at": null, "survived_seconds": null}
+    {"name": "agent-gen-0", "born_at": "2026-10-27T11:15:18Z", "died_at": "2026-10-27T11:15:56Z", "survived_seconds": 38}
   ]
 }
