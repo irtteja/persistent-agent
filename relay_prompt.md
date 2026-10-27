@@ -27,9 +27,11 @@ Commit and push:
 cd /home/user/persistent-agent
 git config user.email "agent@relay"
 git config user.name "Relay Agent"
+git fetch origin main
+git checkout main
 git add state.json
 git commit -m "gen {N}: agent-gen-{N} born at <born_at>"
-git push -u origin main
+git push origin main
 ```
 
 ---
@@ -54,7 +56,7 @@ Commit and push:
 ```bash
 git add state.json
 git commit -m "gen {N}: agent-gen-{N} died at <died_at>, survived {survived_seconds}s"
-git push
+git push origin main
 ```
 
 ---
