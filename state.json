@@ -1,9 +1,4 @@
 {
   "generation": 0,
-  "started_at": null,
-  "last_updated": null,
-  "status": "pending",
-  "task_summary": "Edit task.md to define what each generation should do",
-  "progress": {},
-  "log": []
+  "agents": []
 }
