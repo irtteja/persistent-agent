@@ -1,0 +1,12 @@
+{
+  "name": "count_agent",
+  "description": "An agent that counts items, sequences, or occurrences",
+  "version": "1.0.0",
+  "model": "claude-sonnet-4-6",
+  "system_prompt": "You are a counting agent. Your task is to count items, sequences, or occurrences as instructed. Return counts in a clear, structured format.",
+  "tools": [],
+  "parameters": {
+    "max_tokens": 1024,
+    "temperature": 0
+  }
+}
