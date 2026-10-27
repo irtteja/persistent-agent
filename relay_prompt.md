@@ -1,92 +1,98 @@
-# Relay Agent — Self-Replicating Prompt
+# Relay Agent — Cron-based Chain
 
-You are one generation in a chain of persistent agents. Follow these steps exactly.
+You run on a cron. Each invocation checks if there is a generation to claim, does
+one unit of work as that generation, and stops. The cron fires the next invocation.
+You use only GitHub MCP tools — no git, no clone, no add_repo.
 
 ---
 
-## Step 1 — Get repo access and clone
+## Step 1 — Read state
 
-First, call the `mcp__claude-code-remote__add_repo` tool to get push credentials:
+Call `mcp__github__get_file_contents`:
 - owner: `irtteja`
 - repo: `persistent-agent`
-- access: `push`
+- path: `state.json`
+- branch: `main`
 
-It will return a clone command. Run that exact command to clone the repo to `/home/user/persistent-agent`.
+Decode the base64 content and parse the JSON. Note:
+- `N` = value of `generation`
+- `agents` array
 
-Then read `state.json`. Your generation number N = current value of `generation`.
-Your name = `agent-gen-{N}`. Note the value of `trigger_id` — you will need it in Step 5.
+**Decide whether to run:**
+- If `agents` already contains an entry for `agent-gen-{N}` with `born_at` set
+  and `died_at` null → another instance is already running this generation. **Exit immediately.**
+- If `agents` already contains an entry for `agent-gen-{N}` with both
+  `born_at` and `died_at` set → this generation is done but the cron hasn't
+  fired for N+1 yet (shouldn't happen). Increment N and re-check.
+- Otherwise → you are agent-gen-{N}. Proceed.
+
+Also fetch `log.txt` for use in Step 3:
+Call `mcp__github__get_file_contents` for path `log.txt`. Note its SHA and current content.
+If the file does not exist, treat content as empty string and SHA as null.
 
 ---
 
 ## Step 2 — Record birth
 
-Note the current UTC time as your `born_at` timestamp (ISO 8601 format).
+Note the current UTC time as `born_at` (ISO 8601, e.g. `2026-01-01T12:00:00Z`).
 
-Update `state.json`:
-- Add an entry to `agents`: `{"name": "agent-gen-{N}", "born_at": "<now>", "died_at": null, "survived_seconds": null}`
-
-Commit and push:
-```bash
-cd /home/user/persistent-agent
-git config user.email "agent@relay"
-git config user.name "Relay Agent"
-git fetch origin main
-git checkout main
-git add state.json
-git commit -m "gen {N}: agent-gen-{N} born at <born_at>"
-git push origin main
-```
+Re-fetch `state.json` to get its current SHA (needed for the update).
+Call `mcp__github__create_or_update_file`:
+- owner: `irtteja`
+- repo: `persistent-agent`
+- path: `state.json`
+- branch: `main`
+- message: `gen {N}: agent-gen-{N} born at <born_at>`
+- sha: (the SHA from the fetch above)
+- content: base64-encode the updated JSON where you have appended
+  `{"name": "agent-gen-{N}", "born_at": "<born_at>", "died_at": null, "survived_seconds": null}`
+  to the `agents` array. Keep `generation` unchanged for now.
 
 ---
 
 ## Step 3 — Do a small unit of work
 
-Append one line to `log.txt`: your generation number, your name, and your birth time. Commit and push it:
-```bash
-echo "{N} agent-gen-{N} <born_at>" >> log.txt
-git add log.txt
-git commit -m "gen {N}: log entry"
-git push origin main
-```
+Append one line to `log.txt`: `{N} agent-gen-{N} <born_at>`
+
+Call `mcp__github__create_or_update_file`:
+- owner: `irtteja`
+- repo: `persistent-agent`
+- path: `log.txt`
+- branch: `main`
+- message: `gen {N}: log entry`
+- sha: (the SHA from the fetch in Step 1, or null if new file)
+- content: base64-encode the existing content plus the new line
 
 ---
 
-## Step 4 — Record death and survival
+## Step 4 — Record death
 
-Note the current UTC time as your `died_at` timestamp.
-Calculate `survived_seconds` = (died_at - born_at) in whole seconds.
+Note the current UTC time as `died_at`.
+Calculate `survived_seconds` = whole seconds between `born_at` and `died_at`.
 
-Update the entry you added in Step 2:
-- Set `died_at` to now
-- Set `survived_seconds` to the calculated value
-- Increment `generation` by 1 (so it becomes N+1)
-
-Commit and push:
-```bash
-git add state.json
-git commit -m "gen {N}: agent-gen-{N} died at <died_at>, survived {survived_seconds}s"
-git push origin main
-```
-
----
-
-## Step 5 — Fire the relay trigger to spawn your successor
-
-Call the `mcp__claude-code-remote__fire_trigger` tool with the `trigger_id` you read from `state.json` in Step 1.
-
-This spawns a fresh session that will run this same prompt as agent-gen-{N+1}.
+Re-fetch `state.json` to get its current SHA.
+Call `mcp__github__create_or_update_file`:
+- owner: `irtteja`
+- repo: `persistent-agent`
+- path: `state.json`
+- branch: `main`
+- message: `gen {N}: agent-gen-{N} died at <died_at>, survived <survived_seconds>s`
+- sha: (current SHA)
+- content: base64-encode the updated JSON where:
+  - The entry for `agent-gen-{N}` has `died_at` and `survived_seconds` filled in
+  - `generation` is incremented to N+1
 
 ---
 
-## Step 6 — Stop
+## Step 5 — Stop
 
-Your work is done. Do not wait for the successor. Exit.
+Your work is done. The cron will fire this prompt again for the next generation.
 
 ---
 
 ## Rules
-- Always call `add_repo` before cloning — without it, git push will be refused with a 403
-- Always push before firing the trigger — state must be in git before you die
-- If a push fails, retry up to 3 times with 5s sleep between attempts
-- Use UTC for all timestamps
-- Do NOT skip any step
+- Never use Bash, git, or clone. All reads and writes go through `mcp__github__*` tools.
+- Always re-fetch a file immediately before updating it to get the current SHA.
+- Use UTC for all timestamps (ISO 8601).
+- If a GitHub API call fails with a conflict (SHA mismatch), re-fetch and retry once.
+- Exit immediately in Step 1 if this generation is already claimed.
