@@ -1,5 +1,5 @@
 {
-  "generation": 12,
+  "generation": 13,
   "agents": [
     {"name": "agent-gen-0", "born_at": "2026-10-27T11:15:18Z", "died_at": "2026-10-27T11:15:56Z", "survived_seconds": 38},
     {"name": "agent-gen-1", "born_at": "2026-10-27T11:33:06Z", "died_at": "2026-10-27T11:33:26Z", "survived_seconds": 20},
@@ -13,6 +13,6 @@
     {"name": "agent-gen-9", "born_at": "2026-10-27T12:55:40Z", "died_at": "2026-10-27T12:55:55Z", "survived_seconds": 15},
     {"name": "agent-gen-10", "born_at": "2026-10-27T12:56:17Z", "died_at": "2026-10-27T12:56:31Z", "survived_seconds": 14},
     {"name": "agent-gen-11", "born_at": "2026-10-27T12:56:56Z", "died_at": "2026-10-27T12:57:11Z", "survived_seconds": 15},
-    {"name": "agent-gen-12", "born_at": "2026-10-27T12:57:37Z"}
+    {"name": "agent-gen-12", "born_at": "2026-10-27T12:57:37Z", "died_at": "2026-10-27T12:57:51Z", "survived_seconds": 14}
   ]
 }
