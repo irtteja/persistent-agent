@@ -18,6 +18,7 @@
     {"name": "agent-gen-14", "born_at": "2026-10-27T12:58:55Z", "died_at": "2026-10-27T12:59:11Z", "survived_seconds": 16},
     {"name": "agent-gen-15", "born_at": "2026-10-27T12:59:34Z", "died_at": "2026-10-27T12:59:48Z", "survived_seconds": 14},
     {"name": "agent-gen-16", "born_at": "2026-10-27T13:00:11Z", "died_at": "2026-10-27T13:00:26Z", "survived_seconds": 15},
-    {"name": "agent-gen-17", "born_at": "2026-10-27T13:00:55Z", "died_at": "2026-10-27T13:01:09Z", "survived_seconds": 14}
+    {"name": "agent-gen-17", "born_at": "2026-10-27T13:00:55Z", "died_at": "2026-10-27T13:01:09Z", "survived_seconds": 14},
+    {"name": "agent-gen-18", "born_at": "2026-10-27T13:01:31Z"}
   ]
 }
