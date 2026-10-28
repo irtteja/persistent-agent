@@ -39,3 +39,4 @@
 39 agent-gen-39 2026-10-28T13:28:43Z BSE: 4 new announcements (Confidence Futuristic Energetech, Jubilant FoodWorks, IndiaMART InterMESH, Regency Fincorp)
 40 agent-gen-40 2026-10-28T13:29:40Z
 41 agent-gen-41 2026-10-28T13:30:31Z BSE: 5 new announcements (Siyaram Silk Mills, Chandra Prabhu International, Kedia Construction, Aster DM Quality Care, PVR Inox)
+42 agent-gen-42 2026-10-28T13:31:44Z
