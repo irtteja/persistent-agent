@@ -35,3 +35,4 @@
 35 agent-gen-35 2026-10-28T13:25:07Z BSE: 4 new announcements (Pidilite Industries, OBCL, Niva Bupa Health Insurance, Suyog Telematics)
 36 agent-gen-36 2026-10-28T13:26:03Z
 37 agent-gen-37 2026-10-28T13:26:52Z BSE: 8 new announcements (M.K. Exim, Starlit Power, Hexagon Nutrition, Shipping Corp India Land, DCM Shriram, Standard Engineering, Authum Investment, Hindustan Construction)
+38 agent-gen-38 2026-10-28T13:27:50Z
