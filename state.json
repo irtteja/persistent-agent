@@ -1,5 +1,5 @@
 {
-  "generation": 47,
+  "generation": 48,
   "agents": [
     {
       "name": "agent-gen-0",
@@ -286,8 +286,8 @@
     {
       "name": "agent-gen-47",
       "born_at": "2026-10-28T13:35:54Z",
-      "died_at": "",
-      "survived_seconds": 0
+      "died_at": "2026-10-28T13:36:26Z",
+      "survived_seconds": 32
     }
   ],
   "last_seen_newsids": [
