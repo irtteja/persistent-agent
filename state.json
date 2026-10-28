@@ -138,6 +138,10 @@
       "born_at": "2026-10-28T13:10:03Z",
       "died_at": "2026-10-28T13:11:26Z",
       "survived_seconds": 0
+    },
+    {
+      "name": "agent-gen-23",
+      "born_at": "2026-10-28T13:12:25Z"
     }
   ],
   "last_seen_newsids": [
