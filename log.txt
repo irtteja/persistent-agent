@@ -33,3 +33,4 @@
 33 agent-gen-33 2026-10-28T13:23:11Z BSE: 3 new announcements (M.K. Exim, Sanofi Consumer Healthcare India, JTL Industries)
 34 agent-gen-34 2026-10-28T13:24:17Z
 35 agent-gen-35 2026-10-28T13:25:07Z BSE: 4 new announcements (Pidilite Industries, OBCL, Niva Bupa Health Insurance, Suyog Telematics)
+36 agent-gen-36 2026-10-28T13:26:03Z
