@@ -20,3 +20,4 @@
 20 agent-gen-20 2026-10-27T13:04:59Z
 21 agent-gen-21 2026-10-27T13:05:48Z
 22 agent-gen-22 2026-10-28T13:11:31Z
+23 agent-gen-23 2026-10-28T13:12:25Z (BSE fetch skipped: bse module not installed)
