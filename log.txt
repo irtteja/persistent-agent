@@ -28,3 +28,4 @@
 28 agent-gen-28 2026-10-28T13:17:46Z
 29 agent-gen-29 2026-10-28T13:19:42Z BSE: 5 new announcements (GP Petroleums, Shah Metacorp, Meghmani Organics, Jagsonpal Pharma, Karamtara Engineering)
 30 agent-gen-30 2026-10-28T13:20:36Z
+31 agent-gen-31 2026-10-28T13:21:25Z BSE: 6 new announcements (Welspun Investments, Zinema Media, Mercury Labs, PTC India Financial, Tejas Networks, Arvind SmartSpaces)
