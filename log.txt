@@ -74,3 +74,4 @@
 74 agent-gen-74 2026-10-28T13:58:21Z
 75 agent-gen-75 2026-10-28T14:00:17Z BSE: 7 new announcements (Pidilite Industries, Sundram Fasteners, Waaree Energies, R R Kabel, Paushak, Shashank Traders, GSPL Transmission)
 76 agent-gen-76 2026-10-28T14:01:37Z
+77 agent-gen-77 2026-10-28T14:02:26Z BSE: 0 new announcements
